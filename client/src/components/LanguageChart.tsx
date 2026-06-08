@@ -39,8 +39,8 @@ export function LanguageChart({ repos }: LanguageChartProps) {
       <CardHeader>
         <CardTitle className="text-lg">Top Languages</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="h-[300px] w-full">
+      <CardContent className="pb-6">
+        <div className="h-[320px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
@@ -51,6 +51,7 @@ export function LanguageChart({ repos }: LanguageChartProps) {
                 outerRadius={80}
                 paddingAngle={5}
                 dataKey="value"
+                animationDuration={100}
               >
                 {data.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -64,7 +65,7 @@ export function LanguageChart({ repos }: LanguageChartProps) {
                   color: 'hsl(var(--popover-foreground))'
                 }} 
               />
-              <Legend verticalAlign="bottom" height={36} />
+              <Legend verticalAlign="bottom" wrapperStyle={{ paddingTop: '20px' }} />
             </PieChart>
           </ResponsiveContainer>
         </div>

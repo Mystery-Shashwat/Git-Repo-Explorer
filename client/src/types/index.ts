@@ -36,4 +36,5 @@ export interface GithubRepo {
   disabled: boolean;
   open_issues_count: number;
   topics: string[];
+  default_branch: string;
 }

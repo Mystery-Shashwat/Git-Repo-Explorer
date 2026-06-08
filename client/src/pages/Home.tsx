@@ -7,21 +7,37 @@ import { useUser, useRepos } from '../hooks/useGithub';
 import { Skeleton } from '../components/ui/skeleton';
 import { Terminal as Github } from 'lucide-react';
 import { Button } from '../components/ui/button';
+import { Badge } from '../components/ui/badge';
 
 export function Home() {
-  const [username, setUsername] = useState<string | null>(() => localStorage.getItem('lastSearchedUser'));
+  const [recentSearches, setRecentSearches] = useState<string[]>(() => {
+    const saved = localStorage.getItem('recentSearches');
+    return saved ? JSON.parse(saved) : [];
+  });
+  
+  const [username, setUsername] = useState<string | null>(() => {
+    const saved = localStorage.getItem('recentSearches');
+    const parsed = saved ? JSON.parse(saved) : [];
+    return parsed.length > 0 ? parsed[0] : null;
+  });
 
   const { data: user, isLoading: userLoading, error: userError } = useUser(username);
-  const { data: repos } = useRepos(username);
+  const { data: reposData, fetchNextPage, hasNextPage, isFetchingNextPage } = useRepos(username);
+
+  const repos = reposData?.pages.flat();
 
   const handleSearch = (query: string) => {
     setUsername(query);
-    localStorage.setItem('lastSearchedUser', query);
+    setRecentSearches(prev => {
+      const filtered = prev.filter(q => q.toLowerCase() !== query.toLowerCase());
+      const updated = [query, ...filtered].slice(0, 5);
+      localStorage.setItem('recentSearches', JSON.stringify(updated));
+      return updated;
+    });
   };
 
   const handleClear = () => {
     setUsername(null);
-    localStorage.removeItem('lastSearchedUser');
   };
 
   return (
@@ -40,6 +56,22 @@ export function Home() {
         </div>
         
         <SearchBar onSearch={handleSearch} initialValue={username || ''} />
+        
+        {recentSearches.length > 0 && (
+          <div className="flex flex-wrap gap-2 justify-center w-full max-w-2xl mt-4">
+            <span className="text-sm text-muted-foreground mr-2 self-center">Recent:</span>
+            {recentSearches.map(query => (
+              <Badge 
+                key={query} 
+                variant="secondary" 
+                className="cursor-pointer hover:bg-secondary/80 text-sm py-1 px-3 transition-colors"
+                onClick={() => handleSearch(query)}
+              >
+                {query}
+              </Badge>
+            ))}
+          </div>
+        )}
       </div>
 
       <main className="space-y-12">
@@ -83,6 +115,19 @@ export function Home() {
                     </span>
                   </div>
                   <RepoList repos={repos} />
+                  
+                  {hasNextPage && (
+                    <div className="mt-8 flex justify-center">
+                      <Button 
+                        variant="outline" 
+                        onClick={() => fetchNextPage()} 
+                        disabled={isFetchingNextPage}
+                        className="w-full sm:w-auto"
+                      >
+                        {isFetchingNextPage ? 'Loading more...' : 'Load More'}
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
