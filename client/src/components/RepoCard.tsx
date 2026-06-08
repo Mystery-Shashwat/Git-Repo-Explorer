@@ -30,10 +30,10 @@ export function RepoCard({ repo }: RepoCardProps) {
   const languageColor = repo.language && languageColors[repo.language] ? languageColors[repo.language] : 'bg-gray-400';
 
   return (
-    <Card className="flex flex-col h-full hover:border-primary/50 transition-colors group">
+    <Card className="flex flex-col h-full hover:border-primary/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-md group bg-card/50 backdrop-blur-sm">
       <CardHeader className="flex-1 pb-4">
         <div className="flex justify-between items-start gap-4">
-          <CardTitle className="text-lg group-hover:text-primary transition-colors">
+          <CardTitle className="text-lg font-semibold tracking-tight group-hover:text-primary transition-colors">
             <a href={repo.html_url} target="_blank" rel="noreferrer" className="flex items-center gap-2 break-all">
               <Book className="w-4 h-4 shrink-0 text-muted-foreground" />
               {repo.name}
@@ -47,7 +47,7 @@ export function RepoCard({ repo }: RepoCardProps) {
             </a>
           </div>
         </div>
-        <CardDescription className="line-clamp-2 mt-2 text-sm">
+        <CardDescription className="line-clamp-2 mt-3 text-sm leading-relaxed text-muted-foreground/90">
           {repo.description || 'No description provided.'}
         </CardDescription>
       </CardHeader>

@@ -9,9 +9,9 @@ interface UserCardProps {
 
 export function UserCard({ user }: UserCardProps) {
   return (
-    <Card className="w-full overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm shadow-sm transition-all hover:shadow-md">
-      <CardContent className="p-6 md:p-8">
-        <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start md:items-center">
+    <Card className="w-full overflow-hidden border-border/50 bg-card/50 backdrop-blur-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-border">
+      <CardContent className="p-8 md:p-10">
+        <div className="flex flex-col md:flex-row gap-8 items-start md:items-center">
           <img
             src={user.avatar_url}
             alt={`${user.login}'s avatar`}
@@ -19,19 +19,19 @@ export function UserCard({ user }: UserCardProps) {
           />
           <div className="flex-1 space-y-4">
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold tracking-tight">{user.name || user.login}</h1>
+              <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">{user.name || user.login}</h1>
               <a
                 href={`https://github.com/${user.login}`}
                 target="_blank"
                 rel="noreferrer"
-                className="text-primary hover:underline text-lg font-medium"
+                className="text-primary/80 hover:text-primary transition-colors text-lg font-medium inline-flex mt-1"
               >
                 @{user.login}
               </a>
             </div>
             
             {user.bio && (
-              <p className="text-muted-foreground max-w-2xl">{user.bio}</p>
+              <p className="text-muted-foreground/90 max-w-2xl text-lg leading-relaxed">{user.bio}</p>
             )}
 
             <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">

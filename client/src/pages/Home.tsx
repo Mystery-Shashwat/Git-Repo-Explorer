@@ -26,12 +26,15 @@ export function Home() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
-      <div className="flex flex-col items-center justify-center space-y-8 mb-12">
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
-            Discover <span className="text-primary">GitHub</span> Profiles
+      <div className="flex flex-col items-center justify-center space-y-10 mb-16 pt-8">
+        <div className="text-center space-y-5">
+          <div className="inline-flex items-center justify-center p-2 bg-primary/5 rounded-full mb-4 ring-1 ring-primary/10">
+            <span className="text-sm font-medium px-3 text-primary">Explore millions of repositories</span>
+          </div>
+          <h1 className="text-5xl md:text-6xl font-black tracking-tighter">
+            Discover <span className="bg-clip-text text-transparent bg-gradient-to-br from-primary to-primary/50">GitHub</span> Profiles
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Enter a username to explore their repositories, statistics, and language usage.
           </p>
         </div>
@@ -64,7 +67,7 @@ export function Home() {
         )}
 
         {user && !userError && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both">
             <UserCard user={user} />
             
             {repos && repos.length > 0 && (
