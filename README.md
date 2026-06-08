@@ -6,7 +6,10 @@ Features a polished, responsive UI inspired by SaaS dashboards, with a backend p
 ## Features
 
 - **GitHub Profile Search**: Enter a username to instantly fetch and display profile data.
+- **Recent Searches**: Remembers the 5 most recently searched profiles for quick navigation.
 - **Dynamic Repository List**: View repositories with details like stars, language, description, and topics.
+- **Detailed Repository Info**: Expand repository cards to view additional metrics like open issues and the default branch.
+- **Pagination**: "Load More" functionality to seamlessly fetch and navigate through all of a user's repositories.
 - **Filtering & Sorting**: Instantly filter repositories by name or language, and sort by stars, name, or last updated.
 - **Language Analytics**: Visual breakdown of a user's top programming languages using a Recharts pie chart.
 - **Performance Optimized**: Node.js backend proxy handles rate limits, caching responses for 60 seconds.
@@ -91,12 +94,9 @@ Github-Repo-Explorer/
    ```bash
    npm install
    ```
-3. Start the frontend development server:
-   ```bash
-   npm run dev
-   ```
-   *The client will run on http://localhost:5173*
-
+3. Create a `.env` file and set the backend URL:
+  
+4. Start the frontend development server: npm run dev
 ## API Documentation
 
 The backend exposes the following REST API endpoints:
@@ -114,7 +114,6 @@ Fetches the public repositories for the specified username.
 
 ## Future Improvements
 
-- Add pagination support using an intersection observer for infinite scrolling.
 - Include commit history visualization and activity heatmaps.
 - Implement Redis for scalable, distributed caching.
 - Add user authentication to allow users to link their own GitHub accounts directly.
